@@ -1,42 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* SpanTrue Courier Design System - Professional Logistics Theme */
 
 @layer base {
   :root {
+    /* Core Brand Colors */
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --foreground: 210 20% 15%;
+
+    /* Courier Blue Palette */
+    --primary: 210 100% 45%; /* Professional courier blue */
+    --primary-foreground: 0 0% 100%;
+    --primary-light: 210 100% 60%;
+    --primary-dark: 210 100% 30%;
+
+    /* Orange Accent */
+    --accent: 25 95% 55%; /* Vibrant orange for energy */
+    --accent-foreground: 0 0% 100%;
+    --accent-light: 25 95% 70%;
+    --accent-dark: 25 95% 40%;
+
+    /* Supporting Colors */
+    --secondary: 210 30% 96%;
+    --secondary-foreground: 210 20% 15%;
+    
+    --muted: 210 15% 95%;
+    --muted-foreground: 210 10% 45%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 210 20% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 210 20% 15%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --border: 210 20% 88%;
+    --input: 210 20% 94%;
+    --ring: 210 100% 45%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 75% 55%;
+    --destructive-foreground: 0 0% 100%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary-dark)) 50%, hsl(var(--accent)) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(var(--card)) 0%, hsl(var(--secondary)) 100%);
+    --gradient-accent: linear-gradient(90deg, hsl(var(--accent)) 0%, hsl(var(--accent-light)) 100%);
+    --gradient-overlay: linear-gradient(180deg, rgba(13, 71, 161, 0.9) 0%, rgba(255, 111, 0, 0.8) 100%);
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Shadows & Effects */
+    --shadow-sm: 0 1px 2px 0 rgba(13, 71, 161, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(13, 71, 161, 0.1), 0 2px 4px -1px rgba(13, 71, 161, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(13, 71, 161, 0.1), 0 4px 6px -2px rgba(13, 71, 161, 0.05);
+    --shadow-xl: 0 20px 25px -5px rgba(13, 71, 161, 0.1), 0 10px 10px -5px rgba(13, 71, 161, 0.04);
+    --shadow-glow: 0 0 30px rgba(255, 111, 0, 0.3);
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Animations */
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
     --sidebar-background: 0 0% 98%;
 
@@ -56,41 +81,12 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --background: 210 20% 8%;
+    --foreground: 0 0% 95%;
+    --primary: 210 100% 60%;
+    --accent: 25 95% 60%;
+    --card: 210 20% 12%;
+    --border: 210 20% 20%;
   }
 }
 
@@ -100,6 +96,107 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-inter scroll-smooth;
+  }
+
+  /* Typography Scale */
+  .font-inter { font-family: 'Inter', sans-serif; }
+  .font-poppins { font-family: 'Poppins', sans-serif; }
+}
+
+@layer components {
+  /* Courier Brand Components */
+  .gradient-hero {
+    background: var(--gradient-hero);
+  }
+  
+  .gradient-card {
+    background: var(--gradient-card);
+  }
+  
+  .gradient-accent {
+    background: var(--gradient-accent);
+  }
+
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
+  }
+
+  /* Scroll Animations */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: var(--transition-smooth);
+  }
+  
+  .fade-in.animate {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .parallax {
+    transform: translateY(var(--parallax-offset, 0));
+    transition: transform 0.1s ease-out;
+  }
+
+  /* Hero Video Overlay */
+  .video-overlay {
+    background: var(--gradient-overlay);
+  }
+
+  /* Button Variants */
+  .btn-hero {
+    @apply bg-primary hover:bg-primary-dark text-primary-foreground px-8 py-4 rounded-lg font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105;
+  }
+
+  .btn-accent {
+    @apply bg-accent hover:bg-accent-dark text-accent-foreground px-6 py-3 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all duration-300;
+  }
+
+  .btn-outline {
+    @apply border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground px-6 py-3 rounded-lg font-semibold transition-all duration-300;
+  }
+
+  /* Card Styles */
+  .card-elevated {
+    @apply bg-card rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105;
+  }
+
+  .card-glass {
+    @apply backdrop-blur-md bg-white/10 border border-white/20 rounded-xl;
+  }
+
+  /* Tracking Timeline */
+  .timeline-item {
+    @apply relative pl-8 pb-8 border-l-2 border-primary/20;
+  }
+  
+  .timeline-item::before {
+    @apply absolute left-0 top-0 w-4 h-4 bg-primary rounded-full transform -translate-x-2;
+    content: '';
+  }
+  
+  .timeline-item.completed::before {
+    @apply bg-accent;
+  }
+
+  .timeline-item.active::before {
+    @apply bg-accent animate-pulse shadow-glow;
+  }
+
+  /* Loading States */
+  .loading-shimmer {
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    animation: shimmer 2s infinite;
+  }
+
+  @keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+
+  /* Scroll Progress */
+  .scroll-progress {
+    @apply fixed top-0 left-0 h-1 bg-gradient-accent z-50 transition-all duration-300;
   }
 }
