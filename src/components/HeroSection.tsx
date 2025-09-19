@@ -42,8 +42,8 @@ export const HeroSection = () => {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
-        <div className="animate-fade-in" style={{margin-top: "100px"}}>
+      <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4" style={{margin-top: "100px"}}>
+        <div className="animate-fade-in" >
           <h1 className="text-5xl md:text-7xl font-bold font-poppins mb-6 leading-tight">
             Fast, Reliable
             <span className="bg-gradient-accent bg-clip-text text-transparent"> Global </span>
