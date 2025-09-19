@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Search, Package, Truck, Plane } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import heroImage from '@/assets/hero-logistics.jpg';
+import { HeroImageSlider } from './HeroImageSlider';
 
 export const HeroSection = () => {
   const [trackingCode, setTrackingCode] = useState('');
@@ -18,13 +18,8 @@ export const HeroSection = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Image */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: `url(${heroImage})`,
-        }}
-      />
+      {/* Background Image Slider */}
+      <HeroImageSlider />
       
       {/* Overlay */}
       <div className="absolute inset-0 video-overlay" />

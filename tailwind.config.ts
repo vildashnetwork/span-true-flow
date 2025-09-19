@@ -161,6 +161,14 @@ export default {
           "100%": {
             transform: "translateX(100%)"
           }
+        },
+        "progress": {
+          "0%": {
+            width: "0%"
+          },
+          "100%": {
+            width: "20%"
+          }
         }
       },
       animation: {
@@ -173,6 +181,7 @@ export default {
         "pulse-glow": "pulse-glow 2s ease-in-out infinite",
         "floating": "floating 6s ease-in-out infinite",
         "shimmer": "shimmer 2s infinite",
+        "progress": "progress 5s linear infinite",
       },
     },
   },
