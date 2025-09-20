@@ -8,41 +8,82 @@ import { Input } from '@/components/ui/input';
 import { Card, CardContent } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import Barcode from 'react-barcode';
-import { PDFDownloadLink, Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
+import { PDFDownloadLink, Document, Page, Text, View, StyleSheet, Svg, Path } from '@react-pdf/renderer';
 
 // PDF Styles
 const styles = StyleSheet.create({
   page: { padding: 20 },
-  section: { marginBottom: 10 },
+  section: { marginBottom: 12 },
+  title: { fontSize: 16, marginBottom: 4, fontWeight: 'bold' },
+  label: { fontSize: 12, color: '#555' },
+  value: { fontSize: 12, marginBottom: 2 },
+  row: { flexDirection: 'row', justifyContent: 'space-between' },
 });
 
+// PDF Component
 const TrackingPDF = ({ trackingData }: any) => (
   <Document>
     <Page style={styles.page}>
       <View style={styles.section}>
-        <Text>Tracking Code: {trackingData.trackingCode}</Text>
-        <Text>Status: {trackingData.status}</Text>
-        <Text>Estimated Delivery: {trackingData.estimatedDelivery}</Text>
+        <Text style={styles.title}>Tracking Info</Text>
+        <Text style={styles.value}>Tracking Code: {trackingData.trackingCode}</Text>
+        <Text style={styles.value}>Status: {trackingData.status}</Text>
+        <Text style={styles.value}>Expected Delivery: {trackingData.estimatedDelivery}</Text>
+        <Text style={styles.value}>Origin: {trackingData.origin}</Text>
+        <Text style={styles.value}>Destination: {trackingData.destination}</Text>
+        <Text style={styles.value}>Carrier: {trackingData.carrier}</Text>
+        <Text style={styles.value}>Shipment Type: {trackingData.shipmentType}</Text>
+        <Text style={styles.value}>Payment Mode: {trackingData.paymentMode}</Text>
       </View>
+
+      {/* Sender & Receiver */}
       <View style={styles.section}>
-        <Text>Sender: {trackingData.sender.name}</Text>
-        <Text>Address: {trackingData.sender.address}</Text>
+        <Text style={styles.title}>Sender</Text>
+        <Text style={styles.value}>{trackingData.shipperName}</Text>
+        <Text style={styles.value}>{trackingData.shipperAddress}</Text>
+
+        <Text style={styles.title}>Receiver</Text>
+        <Text style={styles.value}>{trackingData.receiverName}</Text>
+        <Text style={styles.value}>{trackingData.receiverAddress}</Text>
       </View>
+
+      {/* Packages */}
       <View style={styles.section}>
-        <Text>Receiver: {trackingData.receiver.name}</Text>
-        <Text>Address: {trackingData.receiver.address}</Text>
+        <Text style={styles.title}>Packages</Text>
+        {trackingData.packages.map((pkg: any, i: number) => (
+          <View key={i} style={{ marginBottom: 6 }}>
+            <Text style={styles.label}>Piece {i + 1}</Text>
+            <Text style={styles.value}>Quantity: {pkg.quantity}</Text>
+            <Text style={styles.value}>Type: {pkg.pieceType}</Text>
+            <Text style={styles.value}>Weight: {pkg.weight}</Text>
+            <Text style={styles.value}>Dimensions: {pkg.dimensions}</Text>
+            <Text style={styles.value}>Description: {pkg.description}</Text>
+          </View>
+        ))}
       </View>
+
+      {/* Shipment History */}
       <View style={styles.section}>
-        <Text>Package Info:</Text>
-        <Text>Weight: {trackingData.package.weight}</Text>
-        <Text>Dimensions: {trackingData.package.dimensions}</Text>
-        <Text>Service: {trackingData.package.service}</Text>
-        <Text>Value: {trackingData.package.value}</Text>
+        <Text style={styles.title}>Shipment History</Text>
+        {trackingData.history.map((h: any, idx: number) => (
+          <View key={idx} style={{ marginBottom: 4 }}>
+            <Text style={styles.value}>
+              {h.date} {h.time} - {h.status} ({h.location}) Updated by: {h.updatedBy}
+            </Text>
+            {h.remarks && <Text style={styles.value}>Remarks: {h.remarks}</Text>}
+          </View>
+        ))}
+      </View>
+
+      {/* Barcode */}
+      <View style={{ marginTop: 20, alignItems: 'center' }}>
+        <Barcode value={trackingData.trackingCode} />
       </View>
     </Page>
   </Document>
 );
 
+// Tracking Page Component
 const TrackingPage = () => {
   const [searchParams] = useSearchParams();
   const [trackingCode, setTrackingCode] = useState(searchParams.get('code') || '');
@@ -51,9 +92,7 @@ const TrackingPage = () => {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    if (searchParams.get('code')) {
-      handleSearch();
-    }
+    if (searchParams.get('code')) handleSearch();
   }, []);
 
   const handleSearch = async () => {
@@ -61,57 +100,31 @@ const TrackingPage = () => {
       setError('Please enter a tracking code');
       return;
     }
-
     setIsLoading(true);
     setError('');
-
     try {
       const res = await fetch(`https://shipping-backend-x7fl.onrender.com/tracking/${trackingCode}`);
       if (!res.ok) throw new Error('Failed to fetch tracking data');
       const { shipment } = await res.json();
-
       if (!shipment) {
         setError('No data found for this tracking code.');
         setTrackingData(null);
       } else {
-        // Map backend fields to frontend expected structure
-        const mappedData = {
+        // Map the full backend schema
+        setTrackingData({
+          ...shipment,
           trackingCode: shipment.trackingNumber,
           status: shipment.status,
           estimatedDelivery: shipment.expectedDeliveryDate,
-          progress: shipment.progress || 0,
-          package: {
-            weight: shipment.weight,
-            dimensions: shipment.dimensions,
-            service: shipment.shipmentType,
-            value: shipment.value || '-',
-          },
-          sender: {
-            name: shipment.shipperName,
-            address: shipment.shipperAddress,
-          },
-          receiver: {
-            name: shipment.receiverName,
-            address: shipment.receiverAddress,
-          },
-          timeline: shipment.history?.map((h: any) => ({
-            status: h.status,
-            completed: h.completed || false,
-            active: h.active || false,
-            date: h.date,
-            location: h.location,
-            description: h.remarks || '',
-          })) || [],
-        };
-
-        setTrackingData(mappedData);
+          packages: shipment.packages || [],
+          history: shipment.history || [],
+        });
       }
     } catch (err) {
       console.error(err);
       setError('Error fetching tracking data. Please try again later.');
       setTrackingData(null);
     }
-
     setIsLoading(false);
   };
 
@@ -125,22 +138,19 @@ const TrackingPage = () => {
     <div className="min-h-screen bg-background">
       <Header />
 
-      {/* Hero Section */}
+      {/* Hero */}
       <section className="pt-32 pb-16 bg-gradient-hero text-white text-center">
         <h1 className="text-4xl md:text-6xl font-bold mb-6">Track Your Package</h1>
-        <p className="text-xl text-gray-200 max-w-2xl mx-auto">
-          Get real-time updates on your shipment status and delivery progress
-        </p>
       </section>
 
-      {/* Search Section */}
+      {/* Search */}
       <section className="py-16">
         <div className="container mx-auto px-4 max-w-4xl">
           <Card className="card-elevated">
             <CardContent className="p-8 flex flex-col md:flex-row gap-4">
               <Input
                 type="text"
-                placeholder="Enter tracking code (e.g., ST123456789)"
+                placeholder="Enter tracking code"
                 value={trackingCode}
                 onChange={(e) => setTrackingCode(e.target.value)}
                 className="h-14 text-lg flex-1"
@@ -148,7 +158,7 @@ const TrackingPage = () => {
               />
               <Button onClick={handleSearch} className="h-14 px-8 btn-hero text-lg" disabled={isLoading}>
                 <Search className="w-5 h-5 mr-2" />
-                {isLoading ? 'Searching...' : 'Track Package'}
+                {isLoading ? 'Searching...' : 'Track'}
               </Button>
             </CardContent>
             {error && (
@@ -161,66 +171,27 @@ const TrackingPage = () => {
         </div>
       </section>
 
-      {/* Tracking Results */}
+      {/* Results */}
       {trackingData && (
         <section className="pb-16">
           <div className="container mx-auto px-4 max-w-6xl grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Package Info */}
             <Card className="lg:col-span-1 card-elevated">
               <CardContent className="p-6">
                 <h3 className="text-xl font-semibold mb-4 flex items-center">
                   <Package className="w-5 h-5 mr-2 text-primary" /> Package Details
                 </h3>
-                <p className="text-sm text-muted-foreground">Tracking Code</p>
-                <p className="font-mono font-semibold">{trackingData.trackingCode}</p>
+                <p>Tracking Code: {trackingData.trackingCode}</p>
+                <p>Status: {trackingData.status}</p>
+                <p>Estimated Delivery: {trackingData.estimatedDelivery}</p>
+                <p>Origin: {trackingData.origin}</p>
+                <p>Destination: {trackingData.destination}</p>
 
-                <p className="text-sm text-muted-foreground mt-2">Current Status</p>
-                <p className="font-semibold text-accent">{trackingData.status}</p>
-
-                <p className="text-sm text-muted-foreground mt-2">Estimated Delivery</p>
-                <p className="font-semibold">{trackingData.estimatedDelivery}</p>
-
-                <div className="pt-4 border-t border-border">
-                  <p className="text-sm text-muted-foreground mb-2">Progress</p>
-                  <Progress value={trackingData.progress} className="h-3" />
-                  <p className="text-xs text-muted-foreground mt-1">{trackingData.progress}% Complete</p>
-                </div>
-
-                {/* Package Details */}
-                <div className="mt-6 pt-6 border-t border-border space-y-2 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Weight:</span>
-                    <span>{trackingData.package.weight}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Dimensions:</span>
-                    <span>{trackingData.package.dimensions}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Service:</span>
-                    <span>{trackingData.package.service}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Value:</span>
-                    <span>{trackingData.package.value}</span>
-                  </div>
-                </div>
-
-                {/* Barcode */}
-                <div className="mt-6 pt-6 border-t border-border text-center">
-                  <p className="text-sm text-muted-foreground mb-2">Tracking Barcode</p>
-                  <Barcode value={trackingData.trackingCode} />
-                </div>
-
-                {/* PDF Download */}
                 <div className="mt-6 text-center">
                   <PDFDownloadLink
                     document={<TrackingPDF trackingData={trackingData} />}
                     fileName={`tracking-${trackingData.trackingCode}.pdf`}
                   >
-                    {({ loading }) => (
-                      <Button>{loading ? 'Loading PDF...' : 'Download PDF'}</Button>
-                    )}
+                    {({ loading }) => <Button>{loading ? 'Loading PDF...' : 'Download PDF'}</Button>}
                   </PDFDownloadLink>
                 </div>
               </CardContent>
@@ -230,42 +201,29 @@ const TrackingPage = () => {
             <Card className="lg:col-span-2 card-elevated">
               <CardContent className="p-6">
                 <h3 className="text-xl font-semibold mb-6 flex items-center">
-                  <Clock className="w-5 h-5 mr-2 text-primary" /> Shipping Timeline
+                  <Clock className="w-5 h-5 mr-2 text-primary" /> Shipment Timeline
                 </h3>
                 <div className="space-y-6">
-                  {trackingData.timeline.map((item: any, idx: number) => (
+                  {trackingData.history.map((item: any, idx: number) => (
                     <div key={idx} className="flex items-start gap-4">
                       <div className="flex-shrink-0 mt-1">
-                        {getStatusIcon(item.status, item.completed, item.active)}
+                        {getStatusIcon(item.status, true)}
                       </div>
                       <div className="flex-1">
-                        <div className="flex flex-col md:flex-row md:items-center md:justify-between">
-                          <h4 className={`font-semibold ${item.active ? 'text-accent' : item.completed ? 'text-green-600' : 'text-muted-foreground'}`}>
-                            {item.status}
-                          </h4>
-                          <span className="text-sm text-muted-foreground">{item.date}</span>
+                        <div className="flex flex-col md:flex-row md:justify-between">
+                          <h4 className="font-semibold">{item.status}</h4>
+                          <span className="text-sm text-muted-foreground">{item.date} {item.time}</span>
                         </div>
                         <div className="flex items-center mt-2 text-sm">
                           <MapPin className="w-4 h-4 mr-1 text-muted-foreground" />
                           <span className="text-muted-foreground">{item.location}</span>
                         </div>
-                        <p className="text-sm text-muted-foreground mt-1">{item.description}</p>
+                        {item.remarks && <p className="text-sm text-muted-foreground mt-1">Remarks: {item.remarks}</p>}
                       </div>
                     </div>
                   ))}
                 </div>
               </CardContent>
-            </Card>
-          </div>
-        </section>
-      )}
-
-      {isLoading && (
-        <section className="pb-16">
-          <div className="container mx-auto px-4 max-w-4xl">
-            <Card className="card-elevated text-center p-12">
-              <div className="animate-spin w-12 h-12 border-4 border-primary border-t-transparent rounded-full mx-auto mb-4"></div>
-              <p className="text-lg text-muted-foreground">Searching for your package...</p>
             </Card>
           </div>
         </section>
