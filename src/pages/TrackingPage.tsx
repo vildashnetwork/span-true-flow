@@ -66,17 +66,48 @@ const TrackingPage = () => {
     setError('');
 
     try {
-      const res = await fetch(`https://shipping-backend-x7fl.onrender.com/tracking?code=${trackingCode}`);
+      const res = await fetch(`https://shipping-backend-x7fl.onrender.com/tracking/${trackingCode}`);
       if (!res.ok) throw new Error('Failed to fetch tracking data');
-      const data = await res.json();
+      const { shipment } = await res.json();
 
-      if (!data || !data.trackingCode) {
+      if (!shipment) {
         setError('No data found for this tracking code.');
         setTrackingData(null);
       } else {
-        setTrackingData(data);
+        // Map backend fields to frontend expected structure
+        const mappedData = {
+          trackingCode: shipment.trackingNumber,
+          status: shipment.status,
+          estimatedDelivery: shipment.expectedDeliveryDate,
+          progress: shipment.progress || 0,
+          package: {
+            weight: shipment.weight,
+            dimensions: shipment.dimensions,
+            service: shipment.shipmentType,
+            value: shipment.value || '-',
+          },
+          sender: {
+            name: shipment.shipperName,
+            address: shipment.shipperAddress,
+          },
+          receiver: {
+            name: shipment.receiverName,
+            address: shipment.receiverAddress,
+          },
+          timeline: shipment.history?.map((h: any) => ({
+            status: h.status,
+            completed: h.completed || false,
+            active: h.active || false,
+            date: h.date,
+            location: h.location,
+            description: h.remarks || '',
+          })) || [],
+        };
+
+        setTrackingData(mappedData);
       }
     } catch (err) {
+      console.error(err);
       setError('Error fetching tracking data. Please try again later.');
       setTrackingData(null);
     }
@@ -134,7 +165,6 @@ const TrackingPage = () => {
       {trackingData && (
         <section className="pb-16">
           <div className="container mx-auto px-4 max-w-6xl grid grid-cols-1 lg:grid-cols-3 gap-8">
-            
             {/* Package Info */}
             <Card className="lg:col-span-1 card-elevated">
               <CardContent className="p-6">
@@ -223,20 +253,6 @@ const TrackingPage = () => {
                       </div>
                     </div>
                   ))}
-                </div>
-
-                {/* Sender/Receiver Info */}
-                <div className="mt-8 pt-8 border-t border-border grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <h4 className="font-semibold mb-2 text-muted-foreground">FROM</h4>
-                    <p className="font-semibold">{trackingData.sender.name}</p>
-                    <p className="text-sm text-muted-foreground">{trackingData.sender.address}</p>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold mb-2 text-muted-foreground">TO</h4>
-                    <p className="font-semibold">{trackingData.receiver.name}</p>
-                    <p className="text-sm text-muted-foreground">{trackingData.receiver.address}</p>
-                  </div>
                 </div>
               </CardContent>
             </Card>
