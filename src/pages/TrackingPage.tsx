@@ -286,17 +286,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Search, Package, Truck, MapPin, Clock, CheckCircle, AlertCircle } from 'lucide-react';
@@ -336,7 +325,7 @@ const TrackingPage = () => {
         setError('No data found for this tracking code.');
         setTrackingData(null);
       } else {
-        setTrackingData(shipment); // Directly use backend shipment object
+        setTrackingData(shipment);
       }
     } catch (err) {
       console.error(err);
@@ -397,7 +386,7 @@ const TrackingPage = () => {
       {trackingData && (
         <section className="pb-16">
           <div className="container mx-auto px-4 max-w-6xl grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Package Info */}
+            {/* Shipment Info */}
             <Card className="lg:col-span-1 card-elevated">
               <CardContent className="p-6">
                 <h3 className="text-xl font-semibold mb-4 flex items-center">
@@ -423,6 +412,30 @@ const TrackingPage = () => {
                 <p>{trackingData.receiverName}</p>
                 <p className="text-sm text-muted-foreground">Address</p>
                 <p>{trackingData.receiverAddress}</p>
+
+                {/* Packages */}
+                {trackingData.packages?.length > 0 && (
+                  <div className="mt-6 pt-4 border-t border-border">
+                    <h4 className="font-semibold mb-2">Packages</h4>
+                    {trackingData.packages.map((pkg: any, idx: number) => (
+                      <div key={idx} className="text-sm mb-2">
+                        <p><strong>Package {idx + 1}:</strong> {pkg.description}</p>
+                        <p>Quantity: {pkg.quantity}, Type: {pkg.pieceType}</p>
+                        <p>Weight: {pkg.weight} kg, Dimensions: {pkg.dimensions}</p>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* Barcode */}
+                <div className="mt-6 pt-6 border-t border-border text-center">
+                  <p className="text-sm text-muted-foreground mb-2">Tracking Barcode</p>
+                  <img
+                    src={`https://shipping-backend-x7fl.onrender.com/tracking/${trackingData.trackingNumber}/barcode.png`}
+                    alt="Tracking Barcode"
+                    className="mx-auto"
+                  />
+                </div>
 
                 {/* Download PDF */}
                 <div className="mt-6 text-center">
