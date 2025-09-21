@@ -13,12 +13,12 @@ export const Footer = () => {
                 <Truck className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h3 className="text-xl font-bold font-poppins">SpanTrue Courier</h3>
+                <h3 className="text-xl font-bold font-poppins">Starwood Express Logistics</h3>
                 <p className="text-sm text-gray-400">Global Logistics</p>
               </div>
             </Link>
             <p className="text-gray-400 mb-4">
-              Your trusted partner for reliable, fast, and secure shipping solutions worldwide. 
+              Your trusted partner for reliable, fast, and secure shipping solutions worldwide.
               We deliver excellence with every package.
             </p>
             <div className="flex space-x-4">
