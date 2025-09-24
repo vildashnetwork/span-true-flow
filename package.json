@@ -7,7 +7,7 @@
   "dev": "vite",
     "build": "npx vite build",
     "postbuild": "echo '/* /index.html 200' > dist/_redirects",
-    "start": "serve -s dist"
+    "start": "npx serve -s dist -l $PORT"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
