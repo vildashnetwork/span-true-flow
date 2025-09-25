@@ -15,7 +15,8 @@ export default defineConfig(({ mode }) => ({
     },
   },
   build: {
-    outDir: "dist",   // Important! Must be 'dist'
-    emptyOutDir: true // Clears old builds automatically
+    outDir: "dist",       // ✅ make sure it's 'dist'
+    emptyOutDir: true,    // ✅ clean before building
+    sourcemap: false
   },
 }));
