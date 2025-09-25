@@ -6,7 +6,7 @@
   "scripts": {
   "dev": "vite",
     "build": "npx vite build",
-    "postbuild": "echo '/* /index.html 200' > dist/_redirects",
+    "postbuild": "mkdir -p dist && echo '/* /index.html 200' > dist/_redirects",
     "start": "npx serve -s dist -l $PORT"
   },
   "dependencies": {
