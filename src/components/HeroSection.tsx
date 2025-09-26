@@ -20,10 +20,10 @@ export const HeroSection = () => {
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image Slider */}
       <HeroImageSlider />
-      
+
       {/* Overlay */}
       <div className="absolute inset-0 video-overlay" />
-      
+
       {/* Floating Elements */}
       <div className="absolute top-20 left-10 animate-floating">
         <div className="w-16 h-16 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center">
@@ -43,7 +43,7 @@ export const HeroSection = () => {
 
       {/* Content */}
       <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4" style={{ marginTop: "150px" }}
->
+      >
         <div className="animate-fade-in">
           <h1 className="text-5xl md:text-7xl font-bold font-poppins mb-6 leading-tight">
             Fast, Reliable
@@ -51,7 +51,7 @@ export const HeroSection = () => {
             Shipping
           </h1>
           <p className="text-xl md:text-2xl mb-8 text-gray-200 max-w-2xl mx-auto leading-relaxed">
-            Your trusted partner for seamless logistics solutions across the world. 
+            Your trusted partner for seamless logistics solutions across the world.
             We deliver excellence with every package, every time.
           </p>
         </div>
@@ -64,14 +64,14 @@ export const HeroSection = () => {
               <div className="flex-1">
                 <Input
                   type="text"
-                  placeholder="Enter tracking code (e.g., ST123456789)"
+                  placeholder="Enter tracking code"
                   value={trackingCode}
                   onChange={(e) => setTrackingCode(e.target.value)}
                   className="h-14 text-lg bg-white/90 border-white/30 text-foreground placeholder:text-muted-foreground"
                 />
               </div>
-              <Button 
-                type="submit" 
+              <Button
+                type="submit"
                 className="h-14 px-8 btn-accent text-lg"
                 disabled={!trackingCode.trim()}
               >
