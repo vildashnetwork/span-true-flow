@@ -8,7 +8,7 @@ export const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
           <div>
-            
+
             <Link to="/" className="flex items-center space-x-3 mb-6">
               <div className="w-10 h-10 bg-gradient-hero rounded-lg flex items-center justify-center">
                 <Truck className="w-6 h-6 text-white" />
@@ -89,11 +89,11 @@ export const Footer = () => {
               </div>
               <div className="flex items-center space-x-3">
                 <Phone className="w-5 h-5 text-primary flex-shrink-0" />
-                <span className="text-gray-400">+1-800-SPAN-TRUE</span>
+                <span className="text-gray-400">{"+1 (954) 358-7810"}</span>
               </div>
               <div className="flex items-center space-x-3">
                 <Mail className="w-5 h-5 text-primary flex-shrink-0" />
-                <span className="text-gray-400">support@spantrue.com</span>
+                <span className="text-gray-400">support@starwoodexpress.com</span>
               </div>
             </div>
           </div>
