@@ -106,7 +106,7 @@ export const Header = () => {
               <div className="pt-4 space-y-2 text-sm text-muted-foreground">
                 <div className="flex items-center space-x-2">
                   <Phone className="w-4 h-4" />
-                  <span>{"+1 (954) 358-7810n "}</span>
+                  <span>{"+1 (954) 358-7810 "}</span>
                 </div>
                 <div className="flex items-center space-x-2">
                   <Mail className="w-4 h-4" />
