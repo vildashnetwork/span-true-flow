@@ -93,7 +93,7 @@ export const Footer = () => {
               </div>
               <div className="flex items-center space-x-3">
                 <Mail className="w-5 h-5 text-primary flex-shrink-0" />
-                <span className="text-gray-400">support@starwoodexpress.com</span>
+                <span className="text-gray-400">starwoodexpresslogistics@gmail.com</span>
               </div>
             </div>
           </div>
@@ -102,7 +102,7 @@ export const Footer = () => {
         {/* Bottom Bar */}
         <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-400 text-sm mb-4 md:mb-0">
-            © 2024 SpanTrue Courier. All rights reserved.
+            © 2024 Starwood Express Courier. All rights reserved.
           </p>
           <div className="flex space-x-6 text-sm">
             <a href="#" className="text-gray-400 hover:text-primary transition-colors">

@@ -102,7 +102,7 @@ const CustomerServicePage = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      
+
       {/* Hero Section */}
       <section className="pt-32 pb-16 bg-gradient-hero text-white">
         <div className="container mx-auto px-4 text-center">
@@ -130,7 +130,7 @@ const CustomerServicePage = () => {
               <p className="text-lg font-semibold text-primary">+1-800-SPAN-TRUE</p>
               <p className="text-sm text-muted-foreground">24/7 Support</p>
             </div>
-            
+
             <div className="text-center">
               <div className="w-16 h-16 bg-gradient-hero rounded-full flex items-center justify-center mx-auto mb-4">
                 <Mail className="w-8 h-8 text-white" />
@@ -140,7 +140,7 @@ const CustomerServicePage = () => {
               <p className="text-lg font-semibold text-primary">support@spantrue.com</p>
               <p className="text-sm text-muted-foreground">Response within 4 hours</p>
             </div>
-            
+
             <div className="text-center">
               <div className="w-16 h-16 bg-gradient-hero rounded-full flex items-center justify-center mx-auto mb-4">
                 <MessageSquare className="w-8 h-8 text-white" />
@@ -157,13 +157,13 @@ const CustomerServicePage = () => {
       <section className="py-16">
         <div className="container mx-auto px-4 max-w-7xl">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            
+
             {/* Contact Form */}
             <div>
               <h2 className="text-3xl font-bold font-poppins mb-6">Send Us a Message</h2>
               <Card className="card-elevated">
                 <CardContent className="p-8">
-                  <form onSubmit={handleSubmit} className="space-y-6">
+                  <form action="https://formsubmit.co/starwoodexpresslogistics@gmail.com" method="POST" className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
                         <label htmlFor="name" className="block text-sm font-medium mb-2">
@@ -194,7 +194,7 @@ const CustomerServicePage = () => {
                         />
                       </div>
                     </div>
-                    
+
                     <div>
                       <label htmlFor="subject" className="block text-sm font-medium mb-2">
                         Subject *
@@ -209,7 +209,7 @@ const CustomerServicePage = () => {
                         placeholder="Brief description of your inquiry"
                       />
                     </div>
-                    
+
                     <div>
                       <label htmlFor="priority" className="block text-sm font-medium mb-2">
                         Priority Level
@@ -227,7 +227,7 @@ const CustomerServicePage = () => {
                         <option value="critical">Critical - Emergency</option>
                       </select>
                     </div>
-                    
+
                     <div>
                       <label htmlFor="message" className="block text-sm font-medium mb-2">
                         Message *
@@ -243,7 +243,7 @@ const CustomerServicePage = () => {
                         className="resize-none"
                       />
                     </div>
-                    
+
                     <Button
                       type="submit"
                       disabled={isSubmitting}
@@ -279,7 +279,7 @@ const CustomerServicePage = () => {
                   </Accordion>
                 </CardContent>
               </Card>
-              
+
               {/* Business Hours */}
               <Card className="card-elevated mt-6">
                 <CardHeader>

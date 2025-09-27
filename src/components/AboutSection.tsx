@@ -14,10 +14,10 @@ export const AboutSection = () => {
         {/* Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold font-poppins mb-6">
-            About <span className="bg-gradient-accent bg-clip-text text-transparent">SpanTrue Courier</span>
+            About <span className="bg-gradient-accent bg-clip-text text-transparent">Starwood Express Courier</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Leading the logistics industry with innovative solutions, global reach, 
+            Leading the logistics industry with innovative solutions, global reach,
             and an unwavering commitment to excellence.
           </p>
         </div>
@@ -50,9 +50,9 @@ export const AboutSection = () => {
               <h3 className="text-2xl font-bold">Our Mission</h3>
             </div>
             <p className="text-muted-foreground leading-relaxed">
-              To revolutionize global logistics by providing innovative, reliable, and sustainable 
-              shipping solutions that connect businesses and communities worldwide. We strive to 
-              exceed expectations through cutting-edge technology, exceptional service, and 
+              To revolutionize global logistics by providing innovative, reliable, and sustainable
+              shipping solutions that connect businesses and communities worldwide. We strive to
+              exceed expectations through cutting-edge technology, exceptional service, and
               unwavering commitment to our customers' success.
             </p>
             <div className="mt-6 flex flex-wrap gap-2">
@@ -71,9 +71,9 @@ export const AboutSection = () => {
               <h3 className="text-2xl font-bold">Our Vision</h3>
             </div>
             <p className="text-muted-foreground leading-relaxed">
-              To be the world's most trusted logistics partner, setting new standards for 
-              excellence in international shipping and supply chain management. We envision 
-              a future where distance is no barrier to commerce, and every package delivery 
+              To be the world's most trusted logistics partner, setting new standards for
+              excellence in international shipping and supply chain management. We envision
+              a future where distance is no barrier to commerce, and every package delivery
               contributes to building stronger global connections.
             </p>
             <div className="mt-6 flex flex-wrap gap-2">

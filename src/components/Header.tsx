@@ -51,11 +51,11 @@ export const Header = () => {
             <div className="flex items-center space-x-4 text-sm text-muted-foreground">
               <div className="flex items-center space-x-1">
                 <Phone className="w-4 h-4" />
-                <span>+1-800-SPAN-TRUE</span>
+                <span>+1(954) 358-7810</span>
               </div>
               <div className="flex items-center space-x-1">
                 <Mail className="w-4 h-4" />
-                <span>support@spantrue.com</span>
+                <span>starwoodexpresslogistics@gmail.com</span>
               </div>
             </div>
           </nav>
@@ -110,7 +110,7 @@ export const Header = () => {
                 </div>
                 <div className="flex items-center space-x-2">
                   <Mail className="w-4 h-4" />
-                  <span>support@starwoodexpress.com</span>
+                  <span>starwoodexpresslogistics@gmail.com</span>
                 </div>
               </div>
             </nav>
