@@ -49,7 +49,7 @@ export const VideoShowcase = () => {
             <span className="bg-gradient-accent bg-clip-text text-transparent"> Action</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Watch how SpanTrue Courier delivers excellence through cutting-edge logistics solutions
+            Watch how Starwood Express Courier delivers excellence through cutting-edge logistics solutions
             and world-class service standards.
           </p>
         </div>
@@ -140,7 +140,7 @@ export const VideoShowcase = () => {
         {/* Call to Action */}
         <div className="text-center mt-16">
           <div className="bg-gradient-hero rounded-2xl p-8 md:p-12 text-white shadow-2xl">
-            <h3 className="text-3xl font-bold mb-4">Ready to Experience SpanTrue Excellence?</h3>
+            <h3 className="text-3xl font-bold mb-4">Ready to Experience Starwood Express Excellence?</h3>
             <p className="text-xl mb-6 opacity-90">
               Join thousands of satisfied customers who trust us with their shipping needs.
             </p>

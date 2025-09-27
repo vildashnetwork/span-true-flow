@@ -137,7 +137,7 @@ const CustomerServicePage = () => {
               </div>
               <h3 className="text-xl font-semibold mb-2">Email Us</h3>
               <p className="text-muted-foreground mb-2">Get detailed support</p>
-              <p className="text-lg font-semibold text-primary">support@spantrue.com</p>
+              <p className="text-lg font-semibold text-primary">support@Starwood Express.com</p>
               <p className="text-sm text-muted-foreground">Response within 4 hours</p>
             </div>
 
@@ -320,7 +320,7 @@ const CustomerServicePage = () => {
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold font-poppins mb-4">
-              Why Choose <span className="bg-gradient-accent bg-clip-text text-transparent">SpanTrue Courier</span>
+              Why Choose <span className="bg-gradient-accent bg-clip-text text-transparent">Starwood Express Courier</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               Experience the difference with our world-class logistics solutions
