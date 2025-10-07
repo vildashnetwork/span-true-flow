@@ -121,7 +121,7 @@ const CustomerServicePage = () => {
       <section className="py-16 bg-secondary">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            <div className="text-center">
+            {/* <div className="text-center">
               <div className="w-16 h-16 bg-gradient-hero rounded-full flex items-center justify-center mx-auto mb-4">
                 <Phone className="w-8 h-8 text-white" />
               </div>
@@ -129,9 +129,9 @@ const CustomerServicePage = () => {
               <p className="text-muted-foreground mb-2">Speak with our experts</p>
               <p className="text-lg font-semibold text-primary">+1-800-SPAN-TRUE</p>
               <p className="text-sm text-muted-foreground">24/7 Support</p>
-            </div>
+            </div>*/}
 
-            <div className="text-center">
+            <div className="text-center"> 
               <div className="w-16 h-16 bg-gradient-hero rounded-full flex items-center justify-center mx-auto mb-4">
                 <Mail className="w-8 h-8 text-white" />
               </div>
@@ -141,14 +141,14 @@ const CustomerServicePage = () => {
               <p className="text-sm text-muted-foreground">Response within 4 hours</p>
             </div>
 
-            <div className="text-center">
+            {/* <div className="text-center">
               <div className="w-16 h-16 bg-gradient-hero rounded-full flex items-center justify-center mx-auto mb-4">
                 <MessageSquare className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl font-semibold mb-2">Live Chat</h3>
               <p className="text-muted-foreground mb-2">Instant assistance</p>
               <Button className="btn-hero mt-2">Start Chat</Button>
-            </div>
+            </div> */}
           </div>
         </div>
       </section>
